@@ -1,69 +1,34 @@
 /* Compact pill-style shortcuts for Security Operations workspace */
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Activity Log"],
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Access Log"],
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Users"] {
+body.ess-security-workspace .editor-js-container .widget.shortcut-widget-box,
+body.ess-security-workspace .editor-js-container .widget.shortcut.edit-mode {
 	background: var(--fg-color);
 	border: 1px solid var(--border-color);
 	border-radius: 999px;
-	box-shadow: none;
+	box-shadow: none !important;
 	padding: 6px 12px;
 	min-height: 34px;
 }
 
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Activity Log"]:hover,
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Access Log"]:hover,
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Users"]:hover {
+body.ess-security-workspace .editor-js-container .widget.shortcut-widget-box:hover,
+body.ess-security-workspace .editor-js-container .widget.shortcut.edit-mode:hover {
 	border-color: var(--primary);
 	background: color-mix(in srgb, var(--primary) 8%, var(--fg-color));
 }
 
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Activity Log"] .widget-head,
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Access Log"] .widget-head,
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Users"] .widget-head {
+body.ess-security-workspace .editor-js-container .widget.shortcut-widget-box .widget-head,
+body.ess-security-workspace .editor-js-container .widget.shortcut.edit-mode .widget-head {
 	padding: 0;
 	align-items: center;
 }
 
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Activity Log"] .widget-title,
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Access Log"] .widget-title,
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Users"] .widget-title {
+body.ess-security-workspace .editor-js-container .widget.shortcut-widget-box .widget-title,
+body.ess-security-workspace .editor-js-container .widget.shortcut.edit-mode .widget-title {
 	font-size: 13px;
 	font-weight: 600;
 	line-height: 1.2;
 }
 
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Activity Log"] .divider,
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Access Log"] .divider,
-[data-page-route="Workspaces"]
-	.editor-js-container
-	.widget.shortcut-widget-box[data-widget-name="Users"] .divider {
+body.ess-security-workspace .editor-js-container .widget.shortcut-widget-box .divider,
+body.ess-security-workspace .editor-js-container .widget.shortcut.edit-mode .divider {
 	display: none !important;
 }
