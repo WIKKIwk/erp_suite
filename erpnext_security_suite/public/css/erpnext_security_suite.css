@@ -1,0 +1,69 @@
+/* Compact pill-style shortcuts for Security Operations workspace */
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Activity Log"],
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Access Log"],
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Users"] {
+	background: var(--fg-color);
+	border: 1px solid var(--border-color);
+	border-radius: 999px;
+	box-shadow: none;
+	padding: 6px 12px;
+	min-height: 34px;
+}
+
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Activity Log"]:hover,
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Access Log"]:hover,
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Users"]:hover {
+	border-color: var(--primary);
+	background: color-mix(in srgb, var(--primary) 8%, var(--fg-color));
+}
+
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Activity Log"] .widget-head,
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Access Log"] .widget-head,
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Users"] .widget-head {
+	padding: 0;
+	align-items: center;
+}
+
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Activity Log"] .widget-title,
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Access Log"] .widget-title,
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Users"] .widget-title {
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Activity Log"] .divider,
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Access Log"] .divider,
+[data-page-route="Workspaces"]
+	.editor-js-container
+	.widget.shortcut-widget-box[data-widget-name="Users"] .divider {
+	display: none !important;
+}
