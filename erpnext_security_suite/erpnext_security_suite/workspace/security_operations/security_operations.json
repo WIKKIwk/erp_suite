@@ -1,0 +1,89 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"header_security\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Security Operations</b></span>\",\"col\":12}},{\"id\":\"shortcut_activity\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Activity Log\",\"col\":4}},{\"id\":\"shortcut_access\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Access Log\",\"col\":4}},{\"id\":\"shortcut_user\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"Users\",\"col\":4}}]",
+ "creation": "2026-02-28 16:30:00.000000",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "es-line-shield",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Security Operations",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Monitoring",
+   "link_count": 3,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Activity Log",
+   "link_count": 0,
+   "link_to": "Activity Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Access Log",
+   "link_count": 0,
+   "link_to": "Access Log",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Users",
+   "link_count": 0,
+   "link_to": "User",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-02-28 16:30:00.000000",
+ "module": "ERPNext Security Suite",
+ "name": "Security Operations",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [
+  {
+   "role": "System Manager"
+  }
+ ],
+ "sequence_id": 62.0,
+ "shortcuts": [
+  {
+   "doc_view": "List",
+   "label": "Activity Log",
+   "link_to": "Activity Log",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Access Log",
+   "link_to": "Access Log",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Users",
+   "link_to": "User",
+   "type": "DocType"
+  }
+ ],
+ "title": "Security Operations"
+}
