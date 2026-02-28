@@ -7,9 +7,9 @@
 	const BUTTONS_CLASS = "ess-real-buttons";
 
 	const ACTIONS = [
-		{ label: "Activity Log", doctype: "Activity Log" },
-		{ label: "Access Log", doctype: "Access Log" },
-		{ label: "Users", doctype: "User" },
+		{ label: "Activity Log", doctype: "Activity Log", hint: "Monitor sign-ins" },
+		{ label: "Access Log", doctype: "Access Log", hint: "Track data access" },
+		{ label: "Users", doctype: "User", hint: "Manage accounts" },
 	];
 
 	const normalize = (value) =>
@@ -48,11 +48,23 @@
 		});
 	};
 
-	const makeButton = (action) => {
+	const makeButton = (action, index) => {
 		const btn = document.createElement("button");
 		btn.type = "button";
 		btn.className = "btn btn-default btn-sm ess-real-button";
-		btn.textContent = action.label;
+		btn.style.setProperty("--ess-delay", String(index * 90) + "ms");
+		btn.innerHTML = `<span class="ess-btn-label">${action.label}</span><span class="ess-btn-hint">${action.hint}</span>`;
+		btn.addEventListener("pointerdown", function (event) {
+			const ripple = document.createElement("span");
+			ripple.className = "ess-ripple";
+			const rect = btn.getBoundingClientRect();
+			const x = event.clientX - rect.left;
+			const y = event.clientY - rect.top;
+			ripple.style.left = `${x}px`;
+			ripple.style.top = `${y}px`;
+			btn.appendChild(ripple);
+			window.setTimeout(() => ripple.remove(), 460);
+		});
 		btn.addEventListener("click", function () {
 			if (window.frappe && frappe.set_route) {
 				frappe.set_route("List", action.doctype);
@@ -66,13 +78,14 @@
 		if (!row) {
 			row = document.createElement("div");
 			row.className = BUTTONS_CLASS;
-			ACTIONS.forEach((action) => row.appendChild(makeButton(action)));
+			ACTIONS.forEach((action, index) => row.appendChild(makeButton(action, index)));
 			const firstBlock = container.querySelector(".ce-block");
 			if (firstBlock) {
 				firstBlock.insertAdjacentElement("afterend", row);
 			} else {
 				container.prepend(row);
 			}
+			window.requestAnimationFrame(() => row.classList.add("ess-buttons-ready"));
 		}
 	};
 
@@ -103,7 +116,7 @@
 		const observer = new MutationObserver(run);
 		observer.observe(document.body, { childList: true, subtree: true });
 
-		setInterval(run, 1200);
+		setInterval(run, 2500);
 		$(document).on("page-change", run);
 		if (window.frappe && frappe.router && frappe.router.on) {
 			frappe.router.on("change", run);

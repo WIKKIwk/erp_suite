@@ -2,23 +2,134 @@
 body.ess-security-workspace .editor-js-container .ess-real-buttons {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 10px;
-	margin: 8px 0 14px;
+	gap: 12px;
+	margin: 10px 0 16px;
+	align-items: stretch;
+	padding: 2px 0;
 }
 
 body.ess-security-workspace .editor-js-container .ess-real-button {
 	border-radius: 999px;
 	border: 1px solid var(--border-color);
-	background: var(--fg-color);
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--fg-color) 92%, white 8%),
+		color-mix(in srgb, var(--fg-color) 96%, var(--primary) 4%)
+	);
 	color: var(--text-color);
-	font-weight: 600;
-	padding: 6px 14px;
-	line-height: 1.2;
-	box-shadow: none;
+	font-weight: 700;
+	padding: 9px 16px;
+	line-height: 1.15;
+	box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+	display: inline-flex;
+	align-items: baseline;
+	gap: 9px;
+	min-width: clamp(168px, 18vw, 220px);
+	max-width: 100%;
+	position: relative;
+	overflow: hidden;
+	transform: translateY(8px) scale(0.98);
+	opacity: 0;
+	animation: ess-in 420ms cubic-bezier(0.2, 0.75, 0.15, 1) forwards;
+	animation-delay: var(--ess-delay, 0ms);
+	transition:
+		transform 220ms ease,
+		border-color 220ms ease,
+		box-shadow 220ms ease,
+		background 220ms ease;
+}
+
+body.ess-security-workspace
+	.editor-js-container
+	.ess-real-buttons:not(.ess-buttons-ready)
+	.ess-real-button {
+	animation: none;
+	opacity: 0;
 }
 
 body.ess-security-workspace .editor-js-container .ess-real-button:hover {
 	border-color: var(--primary);
-	background: color-mix(in srgb, var(--primary) 8%, var(--fg-color));
+	background: linear-gradient(
+		135deg,
+		color-mix(in srgb, var(--primary) 14%, var(--fg-color)),
+		color-mix(in srgb, var(--primary) 22%, var(--fg-color))
+	);
 	color: var(--text-color);
+	transform: translateY(-2px);
+	box-shadow: 0 9px 18px rgba(48, 71, 94, 0.16);
+}
+
+body.ess-security-workspace .editor-js-container .ess-real-button:active {
+	transform: translateY(0);
+	box-shadow: 0 2px 6px rgba(48, 71, 94, 0.18);
+}
+
+body.ess-security-workspace .editor-js-container .ess-real-button .ess-btn-label {
+	font-size: 13px;
+	letter-spacing: 0.01em;
+}
+
+body.ess-security-workspace .editor-js-container .ess-real-button .ess-btn-hint {
+	font-size: 11px;
+	font-weight: 600;
+	opacity: 0.72;
+	white-space: nowrap;
+}
+
+body.ess-security-workspace .editor-js-container .ess-real-button .ess-ripple {
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: color-mix(in srgb, var(--primary) 35%, transparent);
+	transform: translate(-50%, -50%);
+	animation: ess-ripple 460ms ease-out forwards;
+	pointer-events: none;
+}
+
+@media (max-width: 768px) {
+	body.ess-security-workspace .editor-js-container .ess-real-buttons {
+		gap: 10px;
+	}
+
+	body.ess-security-workspace .editor-js-container .ess-real-button {
+		min-width: 100%;
+		justify-content: space-between;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	body.ess-security-workspace .editor-js-container .ess-real-button {
+		animation: none;
+		opacity: 1;
+		transform: none;
+		transition: none;
+	}
+
+	body.ess-security-workspace .editor-js-container .ess-real-button .ess-ripple {
+		animation: none;
+		display: none;
+	}
+}
+
+@keyframes ess-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px) scale(0.98);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes ess-ripple {
+	from {
+		opacity: 0.55;
+		transform: translate(-50%, -50%) scale(1);
+	}
+	to {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(22);
+	}
 }
