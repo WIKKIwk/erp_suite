@@ -19,7 +19,8 @@ Enterprise-focused security extension app for ERPNext/Frappe.
 - Rate-limiting layer for protected routes
 - Failed login anomaly detection from `Activity Log`
 - Temporary user lock and IP block on repeated failed logins
-- Admin APIs for unlock/unblock and runtime status
+- Trusted users and exempt paths support
+- Admin APIs for lock/unlock, block/unblock, state and runtime status
 - Daily cleanup for old Security V3 activity events
 
 ## `site_config.json` options
@@ -31,6 +32,8 @@ Enterprise-focused security extension app for ERPNext/Frappe.
   "enterprise_security_ip_allowlist": ["10.10.10.10"],
   "enterprise_security_blocked_ips": ["45.77.100.12"],
   "enterprise_security_protected_paths": ["/api/", "/app", "/api/method/login"],
+  "enterprise_security_exempt_paths": ["/assets/", "/socket.io/", "/api/method/ping"],
+  "enterprise_security_trusted_users": ["Administrator"],
   "enterprise_security_rate_limit_count": 120,
   "enterprise_security_rate_limit_window_sec": 60,
   "enterprise_security_login_fail_threshold": 5,
@@ -43,6 +46,9 @@ Enterprise-focused security extension app for ERPNext/Frappe.
 ## Admin API methods
 
 - `erpnext_security_suite.erpnext_security_suite.security_v3.api.security_center.get_security_status`
+- `erpnext_security_suite.erpnext_security_suite.security_v3.api.security_center.get_lock_state`
+- `erpnext_security_suite.erpnext_security_suite.security_v3.api.security_center.lock_user_account`
 - `erpnext_security_suite.erpnext_security_suite.security_v3.api.security_center.unlock_user_account`
+- `erpnext_security_suite.erpnext_security_suite.security_v3.api.security_center.block_ip_address`
 - `erpnext_security_suite.erpnext_security_suite.security_v3.api.security_center.unblock_ip_address`
 - `erpnext_security_suite.erpnext_security_suite.security_v3.api.security_center.reload_settings`

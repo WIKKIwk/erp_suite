@@ -24,6 +24,12 @@ def get_user_lock_reason(user: str) -> str | None:
 	return cache_store.get_value(cache_keys.user_lock_key(user))
 
 
+def get_user_lock_ttl_seconds(user: str) -> int:
+	if not user:
+		return 0
+	return cache_store.ttl_seconds(cache_keys.user_lock_key(user))
+
+
 def block_ip(ip_address: str, *, ttl_seconds: int, reason: str | None = None) -> None:
 	if not ip_address:
 		return
@@ -40,3 +46,15 @@ def is_ip_blocked(ip_address: str) -> bool:
 	if not ip_address:
 		return False
 	return bool(cache_store.get_value(cache_keys.ip_block_key(ip_address)))
+
+
+def get_ip_block_reason(ip_address: str) -> str | None:
+	if not ip_address:
+		return None
+	return cache_store.get_value(cache_keys.ip_block_key(ip_address))
+
+
+def get_ip_block_ttl_seconds(ip_address: str) -> int:
+	if not ip_address:
+		return 0
+	return cache_store.ttl_seconds(cache_keys.ip_block_key(ip_address))

@@ -7,6 +7,10 @@ from erpnext_security_suite.erpnext_security_suite.security_v3.config.settings i
 from erpnext_security_suite.erpnext_security_suite.security_v3.policies.ip_guard import enforce_ip_policy
 from erpnext_security_suite.erpnext_security_suite.security_v3.policies.request_guard import enforce_rate_limit
 from erpnext_security_suite.erpnext_security_suite.security_v3.responders.account_lock import get_user_lock_reason
+from erpnext_security_suite.erpnext_security_suite.security_v3.services.runtime import (
+	is_exempt_path,
+	is_trusted_user,
+)
 from erpnext_security_suite.erpnext_security_suite.security_v3.services.audit import log_security_event
 
 
@@ -22,7 +26,13 @@ def before_request() -> None:
 	request_ip = (getattr(frappe.local, "request_ip", "") or "").strip()
 	user = (getattr(frappe.session, "user", "Guest") or "Guest").strip()
 
+	if is_exempt_path(request_path, settings.exempt_paths):
+		return
+
 	enforce_ip_policy(settings, request_ip=request_ip, request_path=request_path)
+	if is_trusted_user(user, settings.trusted_users):
+		return
+
 	assert_login_not_locked(request_path)
 	enforce_rate_limit(settings, request_path=request_path, request_ip=request_ip, user=user)
 

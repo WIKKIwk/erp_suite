@@ -12,6 +12,15 @@ DEFAULT_PROTECTED_PATHS = (
 	"/api/method/login",
 )
 
+DEFAULT_EXEMPT_PATHS = (
+	"/assets/",
+	"/socket.io/",
+	"/api/method/frappe.health.check",
+	"/api/method/ping",
+)
+
+DEFAULT_TRUSTED_USERS = ("Administrator",)
+
 
 @dataclass(frozen=True)
 class SecurityV3Settings:
@@ -20,6 +29,8 @@ class SecurityV3Settings:
 	allowlist_ips: tuple[str, ...]
 	blocked_ips: tuple[str, ...]
 	protected_paths: tuple[str, ...]
+	exempt_paths: tuple[str, ...]
+	trusted_users: tuple[str, ...]
 	request_limit: int
 	request_window_seconds: int
 	login_fail_threshold: int
@@ -43,6 +54,8 @@ def _load_settings_cached() -> SecurityV3Settings:
 		allowlist_ips=_to_tuple(conf.get("enterprise_security_ip_allowlist")),
 		blocked_ips=_to_tuple(conf.get("enterprise_security_blocked_ips")),
 		protected_paths=_to_tuple(conf.get("enterprise_security_protected_paths"), default=DEFAULT_PROTECTED_PATHS),
+		exempt_paths=_to_tuple(conf.get("enterprise_security_exempt_paths"), default=DEFAULT_EXEMPT_PATHS),
+		trusted_users=_to_tuple(conf.get("enterprise_security_trusted_users"), default=DEFAULT_TRUSTED_USERS),
 		request_limit=_to_int(conf.get("enterprise_security_rate_limit_count"), default=120, minimum=10),
 		request_window_seconds=_to_int(
 			conf.get("enterprise_security_rate_limit_window_sec"),

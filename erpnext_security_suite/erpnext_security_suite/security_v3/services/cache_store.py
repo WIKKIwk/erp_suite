@@ -23,3 +23,13 @@ def get_value(key: str) -> Any:
 
 def delete_value(key: str) -> None:
 	frappe.cache.delete_value(key)
+
+
+def ttl_seconds(key: str) -> int:
+	try:
+		raw_ttl = frappe.cache.ttl(frappe.cache.make_key(key))
+	except Exception:
+		return 0
+	if raw_ttl is None:
+		return 0
+	return max(cint(raw_ttl), 0)
