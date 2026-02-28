@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Frappe / Bench build artifacts
+node_modules/
+assets/
+
+# Local env and tooling
+.venv/
+env/
+.DS_Store
