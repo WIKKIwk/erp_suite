@@ -1,17 +1,12 @@
-/* Security Operations: replace plain shortcuts with explicit button row */
-body.ess-security-workspace .editor-js-container .ce-block.ess-shortcut-hidden,
-body.ess-security-workspace .editor-js-container .widget.ess-shortcut-hidden-widget {
-	display: none !important;
-}
-
-body.ess-security-workspace .editor-js-container .ess-security-actions {
+/* Security Operations: explicit button row */
+body.ess-security-workspace .editor-js-container .ess-real-buttons {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
 	margin: 8px 0 14px;
 }
 
-body.ess-security-workspace .editor-js-container .ess-security-btn {
+body.ess-security-workspace .editor-js-container .ess-real-button {
 	border-radius: 999px;
 	border: 1px solid var(--border-color);
 	background: var(--fg-color);
@@ -22,7 +17,7 @@ body.ess-security-workspace .editor-js-container .ess-security-btn {
 	box-shadow: none;
 }
 
-body.ess-security-workspace .editor-js-container .ess-security-btn:hover {
+body.ess-security-workspace .editor-js-container .ess-real-button:hover {
 	border-color: var(--primary);
 	background: color-mix(in srgb, var(--primary) 8%, var(--fg-color));
 	color: var(--text-color);
