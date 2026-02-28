@@ -5,6 +5,12 @@
 	const WORKSPACE_SLUG = "security-operations";
 	const ROOT_CLASS = "ess-security-workspace";
 
+	const ACTIONS = [
+		{ label: "Activity Log", doctype: "Activity Log", type: "DocType" },
+		{ label: "Access Log", doctype: "Access Log", type: "DocType" },
+		{ label: "Users", doctype: "User", type: "DocType" },
+	];
+
 	const normalize = (value) =>
 		String(value || "")
 			.trim()
@@ -32,33 +38,79 @@
 		return isWorkspaceTitleInDOM();
 	};
 
-	const applyCompactShortcutClass = () => {
-		const widgets = document.querySelectorAll(
-			".editor-js-container .widget.shortcut-widget-box, .editor-js-container .widget.shortcut.edit-mode"
-		);
-		widgets.forEach((node) => node.classList.add("ess-pill-shortcut"));
-	};
-
-	const clearCompactShortcutClass = () => {
-		const widgets = document.querySelectorAll(".editor-js-container .widget.ess-pill-shortcut");
-		widgets.forEach((node) => node.classList.remove("ess-pill-shortcut"));
-	};
-
-	const syncWorkspaceStyles = () => {
-		const active = isSecurityWorkspace();
-		document.body.classList.toggle(ROOT_CLASS, active);
-		if (active) {
-			applyCompactShortcutClass();
-		} else {
-			clearCompactShortcutClass();
+	const onActionClick = (action) => {
+		if (!window.frappe) return;
+		if (action.type === "DocType") {
+			frappe.set_route("List", action.doctype);
 		}
 	};
 
+	const renderActionButtons = () => {
+		const root = document.querySelector(".editor-js-container");
+		if (!root || root.querySelector(".ess-security-actions")) {
+			return;
+		}
+
+		const actions = document.createElement("div");
+		actions.className = "ess-security-actions";
+
+		ACTIONS.forEach((action) => {
+			const btn = document.createElement("button");
+			btn.type = "button";
+			btn.className = "btn btn-default btn-sm ess-security-btn";
+			btn.textContent = action.label;
+			btn.addEventListener("click", () => onActionClick(action));
+			actions.appendChild(btn);
+		});
+
+		const firstBlock = root.querySelector(".ce-block");
+		if (firstBlock) {
+			firstBlock.insertAdjacentElement("afterend", actions);
+		} else {
+			root.prepend(actions);
+		}
+	};
+
+	const hideShortcutBlocks = () => {
+		const widgets = document.querySelectorAll(
+			".editor-js-container .widget.shortcut-widget-box, .editor-js-container .widget.shortcut.edit-mode"
+		);
+		widgets.forEach((widget) => {
+			const block = widget.closest(".ce-block");
+			if (block) {
+				block.classList.add("ess-shortcut-hidden");
+			} else {
+				widget.classList.add("ess-shortcut-hidden-widget");
+			}
+		});
+	};
+
+	const clearWorkspaceEnhancements = () => {
+		document.querySelectorAll(".ess-security-actions").forEach((node) => node.remove());
+		document
+			.querySelectorAll(".editor-js-container .ce-block.ess-shortcut-hidden")
+			.forEach((node) => node.classList.remove("ess-shortcut-hidden"));
+		document
+			.querySelectorAll(".editor-js-container .widget.ess-shortcut-hidden-widget")
+			.forEach((node) => node.classList.remove("ess-shortcut-hidden-widget"));
+	};
+
+	const syncWorkspace = () => {
+		const active = isSecurityWorkspace();
+		document.body.classList.toggle(ROOT_CLASS, active);
+		if (!active) {
+			clearWorkspaceEnhancements();
+			return;
+		}
+		renderActionButtons();
+		hideShortcutBlocks();
+	};
+
 	const scheduleSync = () => {
-		syncWorkspaceStyles();
-		window.setTimeout(syncWorkspaceStyles, 120);
-		window.setTimeout(syncWorkspaceStyles, 380);
-		window.setTimeout(syncWorkspaceStyles, 900);
+		syncWorkspace();
+		window.setTimeout(syncWorkspace, 120);
+		window.setTimeout(syncWorkspace, 380);
+		window.setTimeout(syncWorkspace, 900);
 	};
 
 	const init = () => {

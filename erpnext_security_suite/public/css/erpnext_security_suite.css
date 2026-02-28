@@ -1,39 +1,29 @@
-/* Compact pill-style shortcuts for Security Operations workspace */
-body.ess-security-workspace .editor-js-container .widget.shortcut-widget-box,
-body.ess-security-workspace .editor-js-container .widget.shortcut.edit-mode,
-.editor-js-container .widget.ess-pill-shortcut {
-	background: var(--fg-color);
-	border: 1px solid var(--border-color);
-	border-radius: 999px;
-	box-shadow: none !important;
-	padding: 6px 12px;
-	min-height: 34px;
+/* Security Operations: replace plain shortcuts with explicit button row */
+body.ess-security-workspace .editor-js-container .ce-block.ess-shortcut-hidden,
+body.ess-security-workspace .editor-js-container .widget.ess-shortcut-hidden-widget {
+	display: none !important;
 }
 
-body.ess-security-workspace .editor-js-container .widget.shortcut-widget-box:hover,
-body.ess-security-workspace .editor-js-container .widget.shortcut.edit-mode:hover,
-.editor-js-container .widget.ess-pill-shortcut:hover {
+body.ess-security-workspace .editor-js-container .ess-security-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 8px 0 14px;
+}
+
+body.ess-security-workspace .editor-js-container .ess-security-btn {
+	border-radius: 999px;
+	border: 1px solid var(--border-color);
+	background: var(--fg-color);
+	color: var(--text-color);
+	font-weight: 600;
+	padding: 6px 14px;
+	line-height: 1.2;
+	box-shadow: none;
+}
+
+body.ess-security-workspace .editor-js-container .ess-security-btn:hover {
 	border-color: var(--primary);
 	background: color-mix(in srgb, var(--primary) 8%, var(--fg-color));
-}
-
-body.ess-security-workspace .editor-js-container .widget.shortcut-widget-box .widget-head,
-body.ess-security-workspace .editor-js-container .widget.shortcut.edit-mode .widget-head,
-.editor-js-container .widget.ess-pill-shortcut .widget-head {
-	padding: 0;
-	align-items: center;
-}
-
-body.ess-security-workspace .editor-js-container .widget.shortcut-widget-box .widget-title,
-body.ess-security-workspace .editor-js-container .widget.shortcut.edit-mode .widget-title,
-.editor-js-container .widget.ess-pill-shortcut .widget-title {
-	font-size: 13px;
-	font-weight: 600;
-	line-height: 1.2;
-}
-
-body.ess-security-workspace .editor-js-container .widget.shortcut-widget-box .divider,
-body.ess-security-workspace .editor-js-container .widget.shortcut.edit-mode .divider,
-.editor-js-container .widget.ess-pill-shortcut .divider {
-	display: none !important;
+	color: var(--text-color);
 }
