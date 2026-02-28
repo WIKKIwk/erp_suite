@@ -25,8 +25,10 @@ required_apps = ["erpnext"]
 # ------------------
 
 # include js, css files in header of desk.html
-app_include_css = "/assets/erpnext_security_suite/css/erpnext_security_suite.css"
-app_include_js = "/assets/erpnext_security_suite/js/security_workspace_buttons.js"
+# Temporary safety mode:
+# Disable global desk injection until frontend regression is isolated post-upgrade.
+# app_include_css = "/assets/erpnext_security_suite/css/erpnext_security_suite.css?v=20260228_03"
+# app_include_js = "/assets/erpnext_security_suite/js/security_workspace_buttons.js?v=20260228_03"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/erpnext_security_suite/css/erpnext_security_suite.css"
@@ -182,13 +184,15 @@ scheduler_events = {
 
 # Request Events
 # ----------------
-before_request = [
-	"erpnext_security_suite.erpnext_security_suite.security_v3.hooks.request.before_request",
-]
-
-after_request = [
-	"erpnext_security_suite.erpnext_security_suite.security_v3.hooks.request.after_request",
-]
+# Temporary safety mode:
+# Disable request hooks until frontend stability is fully restored.
+# before_request = [
+# 	"erpnext_security_suite.erpnext_security_suite.security_v3.hooks.request.before_request",
+# ]
+#
+# after_request = [
+# 	"erpnext_security_suite.erpnext_security_suite.security_v3.hooks.request.after_request",
+# ]
 
 # Job Events
 # ----------

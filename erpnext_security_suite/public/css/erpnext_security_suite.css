@@ -1,42 +1,121 @@
-/* Security Operations: explicit button row */
+/* Security Operations workspace UI */
+body.ess-security-workspace .editor-js-container .ess-mode-panel,
 body.ess-security-workspace .editor-js-container .ess-real-buttons {
+	width: 100%;
+	flex-basis: 100%;
+}
+
+body.ess-security-workspace .editor-js-container .ess-mode-panel {
+	max-width: 460px;
+	margin: 12px 0 8px;
+	padding: 12px 14px;
+	border-radius: 14px;
+	border: 1px solid color-mix(in srgb, var(--border-color) 86%, var(--primary) 14%);
+	background: linear-gradient(
+		160deg,
+		color-mix(in srgb, var(--fg-color) 97%, white 3%),
+		color-mix(in srgb, var(--fg-color) 93%, var(--primary) 7%)
+	);
+	box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+}
+
+body.ess-security-workspace .editor-js-container .ess-mode-panel .ess-mode-title {
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	opacity: 0.72;
+	margin-bottom: 9px;
+}
+
+body.ess-security-workspace .editor-js-container .ess-mode-panel .ess-mode-row {
 	display: flex;
 	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px;
+}
+
+body.ess-security-workspace .editor-js-container .ess-mode-panel .ess-mode-status {
+	display: inline-flex;
+	align-items: center;
+	border-radius: 999px;
+	padding: 6px 12px;
+	font-size: 12px;
+	font-weight: 700;
+	border: 1px solid var(--border-color);
+	background: color-mix(in srgb, var(--fg-color) 93%, white 7%);
+	color: color-mix(in srgb, var(--text-color) 88%, #6b7280 12%);
+}
+
+body.ess-security-workspace .editor-js-container .ess-mode-panel .ess-mode-status.is-on {
+	border-color: color-mix(in srgb, #ef4444 48%, var(--border-color));
+	background: color-mix(in srgb, #ef4444 12%, var(--fg-color));
+	color: color-mix(in srgb, #991b1b 78%, var(--text-color));
+}
+
+body.ess-security-workspace .editor-js-container .ess-mode-panel .ess-mode-toggle {
+	border-radius: 999px;
+	border: 1px solid color-mix(in srgb, var(--border-color) 72%, var(--primary) 28%);
+	background: linear-gradient(
+		130deg,
+		color-mix(in srgb, var(--primary) 18%, var(--fg-color)),
+		color-mix(in srgb, var(--primary) 28%, var(--fg-color))
+	);
+	font-weight: 700;
+	padding: 8px 14px;
+	transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+body.ess-security-workspace .editor-js-container .ess-mode-panel .ess-mode-toggle:hover {
+	transform: translateY(-1px);
+	box-shadow: 0 6px 14px rgba(48, 71, 94, 0.16);
+	filter: saturate(1.08);
+}
+
+body.ess-security-workspace .editor-js-container .ess-mode-panel .ess-mode-toggle.is-busy {
+	opacity: 0.7;
+}
+
+body.ess-security-workspace .editor-js-container .ess-real-buttons {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
 	gap: 12px;
-	margin: 10px 0 16px;
-	align-items: stretch;
+	margin: 10px 0 20px;
 	padding: 2px 0;
 }
 
 body.ess-security-workspace .editor-js-container .ess-real-button {
-	border-radius: 999px;
-	border: 1px solid var(--border-color);
+	border-radius: 16px;
+	border: 1px solid color-mix(in srgb, var(--border-color) 84%, var(--primary) 16%);
 	background: linear-gradient(
-		135deg,
-		color-mix(in srgb, var(--fg-color) 92%, white 8%),
-		color-mix(in srgb, var(--fg-color) 96%, var(--primary) 4%)
+		160deg,
+		color-mix(in srgb, var(--fg-color) 96%, white 4%),
+		color-mix(in srgb, var(--fg-color) 93%, var(--primary) 7%)
 	);
 	color: var(--text-color);
 	font-weight: 700;
-	padding: 9px 16px;
-	line-height: 1.15;
-	box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
-	display: inline-flex;
-	align-items: baseline;
-	gap: 9px;
-	min-width: clamp(168px, 18vw, 220px);
+	padding: 12px 14px;
+	line-height: 1.2;
+	box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 6px;
+	min-height: 78px;
 	max-width: 100%;
 	position: relative;
 	overflow: hidden;
-	transform: translateY(8px) scale(0.98);
+	text-align: left;
+	transform: translateY(8px) scale(0.985);
 	opacity: 0;
-	animation: ess-in 420ms cubic-bezier(0.2, 0.75, 0.15, 1) forwards;
+	animation: ess-in 360ms cubic-bezier(0.2, 0.75, 0.15, 1) forwards;
 	animation-delay: var(--ess-delay, 0ms);
 	transition:
-		transform 220ms ease,
-		border-color 220ms ease,
-		box-shadow 220ms ease,
-		background 220ms ease;
+		transform 200ms ease,
+		border-color 200ms ease,
+		box-shadow 200ms ease,
+		background 200ms ease;
 }
 
 body.ess-security-workspace
@@ -50,30 +129,29 @@ body.ess-security-workspace
 body.ess-security-workspace .editor-js-container .ess-real-button:hover {
 	border-color: var(--primary);
 	background: linear-gradient(
-		135deg,
+		160deg,
 		color-mix(in srgb, var(--primary) 14%, var(--fg-color)),
-		color-mix(in srgb, var(--primary) 22%, var(--fg-color))
+		color-mix(in srgb, var(--primary) 24%, var(--fg-color))
 	);
-	color: var(--text-color);
 	transform: translateY(-2px);
-	box-shadow: 0 9px 18px rgba(48, 71, 94, 0.16);
+	box-shadow: 0 10px 18px rgba(48, 71, 94, 0.14);
 }
 
 body.ess-security-workspace .editor-js-container .ess-real-button:active {
 	transform: translateY(0);
-	box-shadow: 0 2px 6px rgba(48, 71, 94, 0.18);
+	box-shadow: 0 3px 8px rgba(48, 71, 94, 0.16);
 }
 
 body.ess-security-workspace .editor-js-container .ess-real-button .ess-btn-label {
-	font-size: 13px;
+	font-size: 18px;
 	letter-spacing: 0.01em;
 }
 
 body.ess-security-workspace .editor-js-container .ess-real-button .ess-btn-hint {
-	font-size: 11px;
+	font-size: 12px;
 	font-weight: 600;
-	opacity: 0.72;
-	white-space: nowrap;
+	opacity: 0.74;
+	white-space: normal;
 }
 
 body.ess-security-workspace .editor-js-container .ess-real-button .ess-ripple {
@@ -83,18 +161,27 @@ body.ess-security-workspace .editor-js-container .ess-real-button .ess-ripple {
 	border-radius: 50%;
 	background: color-mix(in srgb, var(--primary) 35%, transparent);
 	transform: translate(-50%, -50%);
-	animation: ess-ripple 460ms ease-out forwards;
+	animation: ess-ripple 420ms ease-out forwards;
 	pointer-events: none;
 }
 
 @media (max-width: 768px) {
-	body.ess-security-workspace .editor-js-container .ess-real-buttons {
-		gap: 10px;
+	body.ess-security-workspace .editor-js-container .ess-mode-panel {
+		max-width: 100%;
 	}
 
-	body.ess-security-workspace .editor-js-container .ess-real-button {
-		min-width: 100%;
-		justify-content: space-between;
+	body.ess-security-workspace .editor-js-container .ess-mode-panel .ess-mode-row {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	body.ess-security-workspace .editor-js-container .ess-mode-panel .ess-mode-status {
+		justify-content: center;
+	}
+
+	body.ess-security-workspace .editor-js-container .ess-real-buttons {
+		grid-template-columns: 1fr;
+		gap: 10px;
 	}
 }
 
@@ -103,6 +190,10 @@ body.ess-security-workspace .editor-js-container .ess-real-button .ess-ripple {
 		animation: none;
 		opacity: 1;
 		transform: none;
+		transition: none;
+	}
+
+	body.ess-security-workspace .editor-js-container .ess-mode-panel .ess-mode-toggle {
 		transition: none;
 	}
 
@@ -115,7 +206,7 @@ body.ess-security-workspace .editor-js-container .ess-real-button .ess-ripple {
 @keyframes ess-in {
 	from {
 		opacity: 0;
-		transform: translateY(8px) scale(0.98);
+		transform: translateY(8px) scale(0.985);
 	}
 	to {
 		opacity: 1;
@@ -125,11 +216,11 @@ body.ess-security-workspace .editor-js-container .ess-real-button .ess-ripple {
 
 @keyframes ess-ripple {
 	from {
-		opacity: 0.55;
+		opacity: 0.56;
 		transform: translate(-50%, -50%) scale(1);
 	}
 	to {
 		opacity: 0;
-		transform: translate(-50%, -50%) scale(22);
+		transform: translate(-50%, -50%) scale(20);
 	}
 }

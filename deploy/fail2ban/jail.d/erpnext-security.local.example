@@ -1,0 +1,22 @@
+[erpnext-security-login]
+enabled = true
+filter = erpnext-security-login
+backend = auto
+# Protect all sites on the bench (adjust base path to your bench location)
+logpath = /home/frappe/frappe-bench/sites/*/logs/ess_security.log
+maxretry = 5
+findtime = 10
+bantime = 24h
+port = http,https
+action = iptables-multiport[name=erpnext-security-login, port="http,https", protocol=tcp]
+
+[erpnext-security-api]
+enabled = true
+filter = erpnext-security-api
+backend = auto
+logpath = /home/frappe/frappe-bench/sites/*/logs/ess_security.log
+maxretry = 12
+findtime = 60
+bantime = 6h
+port = http,https
+action = iptables-multiport[name=erpnext-security-api, port="http,https", protocol=tcp]

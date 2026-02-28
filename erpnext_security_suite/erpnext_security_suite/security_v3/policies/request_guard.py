@@ -19,19 +19,23 @@ def enforce_rate_limit(
 		return
 
 	identity = (user or "").strip()
-	if not identity or identity == "Guest":
+	is_guest = not identity or identity == "Guest"
+	if is_guest:
 		identity = (request_ip or "guest").strip()
 
+	effective_limit = _resolve_effective_limit(settings, request_path=request_path, user=user)
 	key = cache_keys.request_counter_key(identity, request_path, settings.request_window_seconds)
 	count = cache_store.increment_with_expiry(key, settings.request_window_seconds)
-	if count <= settings.request_limit:
+	if count <= effective_limit:
 		return
 
 	log_security_event(
 		subject="Request limit exceeded",
 		status="Failed",
-		content=f"identity={identity} path={request_path} limit={settings.request_limit}",
+		content=f"identity={identity} path={request_path} limit={effective_limit}",
 		user=user or "Guest",
+		ip_address=request_ip,
+		event_type="request_limit_exceeded",
 	)
 	frappe.throw(
 		_("Too many requests. Please wait and try again."),
@@ -43,3 +47,16 @@ def _is_protected_path(path: str, protected_paths: tuple[str, ...]) -> bool:
 	if not path:
 		return False
 	return any(path.startswith(prefix) for prefix in protected_paths)
+
+
+def _resolve_effective_limit(settings: SecurityV3Settings, *, request_path: str, user: str) -> int:
+	clean_user = (user or "").strip()
+	if request_path in {"/api/method/login", "/login"}:
+		return settings.request_limit
+
+	# Desk form load performs many API calls during page open; keep hardened but usable limits.
+	if clean_user and clean_user != "Guest":
+		return max(settings.request_limit * 8, 300)
+
+	# Guest/public paths stay stricter than authenticated traffic.
+	return max(settings.request_limit * 3, 120)

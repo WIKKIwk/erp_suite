@@ -1,9 +1,13 @@
 from __future__ import annotations
 
+import frappe
+from frappe.sessions import clear_sessions
+
 from erpnext_security_suite.erpnext_security_suite.security_v3.services import cache_keys, cache_store
 
 
 _LOCK_REASON = "locked"
+_UNBLOCKABLE_USERS = {"administrator", "guest"}
 
 
 def lock_user(user: str, *, ttl_seconds: int, reason: str | None = None) -> None:
@@ -28,6 +32,41 @@ def get_user_lock_ttl_seconds(user: str) -> int:
 	if not user:
 		return 0
 	return cache_store.ttl_seconds(cache_keys.user_lock_key(user))
+
+
+def disable_user_permanently(user: str, *, reason: str | None = None) -> bool:
+	clean_user = (user or "").strip().lower()
+	if not clean_user or clean_user in _UNBLOCKABLE_USERS:
+		return False
+	if not frappe.db.exists("User", clean_user):
+		return False
+	if not frappe.db.get_value("User", clean_user, "enabled"):
+		return False
+
+	frappe.db.set_value("User", clean_user, "enabled", 0, update_modified=True)
+	frappe.cache.delete_value(cache_keys.user_lock_key(clean_user))
+	clear_sessions(user=clean_user, force=True)
+	return True
+
+
+def enable_user_account(user: str) -> bool:
+	clean_user = (user or "").strip().lower()
+	if not clean_user or clean_user in _UNBLOCKABLE_USERS:
+		return False
+	if not frappe.db.exists("User", clean_user):
+		return False
+	if frappe.db.get_value("User", clean_user, "enabled"):
+		return False
+
+	frappe.db.set_value("User", clean_user, "enabled", 1, update_modified=True)
+	return True
+
+
+def is_user_disabled(user: str) -> bool:
+	clean_user = (user or "").strip().lower()
+	if not clean_user or not frappe.db.exists("User", clean_user):
+		return False
+	return not bool(frappe.db.get_value("User", clean_user, "enabled"))
 
 
 def block_ip(ip_address: str, *, ttl_seconds: int, reason: str | None = None) -> None:

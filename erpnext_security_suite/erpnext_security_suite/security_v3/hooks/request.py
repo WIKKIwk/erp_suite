@@ -43,6 +43,12 @@ def after_request(response=None, request=None) -> None:
 		return
 	if response and getattr(response, "headers", None) is not None:
 		response.headers["X-Enterprise-Security"] = "ERPNext Security Suite V3"
+		response.headers["X-Enterprise-Security-Mode"] = settings.mode
+		if settings.mode == "ultra_hard":
+			# Add hardened defaults that don't break same-origin ERP usage.
+			response.headers.setdefault("X-Content-Type-Options", "nosniff")
+			response.headers.setdefault("Referrer-Policy", "same-origin")
+			response.headers.setdefault("Permissions-Policy", "geolocation=(), camera=(), microphone=()")
 
 
 def assert_login_not_locked(request_path: str) -> None:
@@ -60,6 +66,7 @@ def assert_login_not_locked(request_path: str) -> None:
 		status="Failed",
 		content=f"user={login_user}",
 		user=login_user,
+		event_type="locked_account_login_blocked",
 	)
 	frappe.throw(
 		_("This account is temporarily locked because of repeated failed login attempts."),
